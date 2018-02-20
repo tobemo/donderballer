@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "824189485414",
+    "firebase_url": "https://donderballer-fcdfc.firebaseio.com",
+    "project_id": "donderballer-fcdfc",
+    "storage_bucket": "donderballer-fcdfc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824189485414:android:714287c6d28e0cae",
+        "android_client_info": {
+          "package_name": "beers.donderballer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "824189485414-1r3821mhjnqv1on0f5mri62iltj1ppae.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyATrVZ7hz1tA95FoybQdWRo5k6LjUqpW4o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
