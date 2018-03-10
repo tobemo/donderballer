@@ -27,6 +27,14 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * LoginActivity logs in users using their facebook account.
+ * This accoutn can later on be used for eg. making facebook polls.
+ *
+ * @author tobemo
+ * @version 1
+ */
+
 public class LoginActivity extends AppCompatActivity {
 
 
@@ -40,12 +48,18 @@ public class LoginActivity extends AppCompatActivity {
 
     private String TAG = "LoginActivity";
 
+    /**
+     * onStart checks if a user is already logged in.
+     * If so the app goes to the next activity without welcoming the user.
+     */
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
+        if(currentUser != null) {
+            nextActivity();
+        }
     }
 
     @Override
@@ -55,8 +69,6 @@ public class LoginActivity extends AppCompatActivity {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-
-
         mAuth = FirebaseAuth.getInstance();
 
         setContentView(R.layout.activity_login);
@@ -69,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                nextActivity();
             }
 
             @Override
@@ -96,17 +109,16 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                            changeAct();
+                            welcomeToast(user);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+                            welcomeToast(null);
                         }
 
-                        // ...
                     }
                 });
     }
@@ -117,11 +129,17 @@ public class LoginActivity extends AppCompatActivity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void updateUI(FirebaseUser user)    {
+    /**
+     * A toast welcoming the user: Welcome + user's name
+     * @param user
+     */
+    private void welcomeToast(FirebaseUser user)    {
+        Log.d(TAG,"welcome toast");
+
         if(user != null) {
-            info.setText(user.getDisplayName());
+            Toast.makeText(LoginActivity.this, R.string.welcome_message + user.getDisplayName()+ ".", Toast.LENGTH_SHORT);
         }   else    {
-            info.setText("Someting went wrong.");
+            Toast.makeText(LoginActivity.this, R.string.error_retrieving_name, Toast.LENGTH_SHORT);
         }
 
     }
@@ -131,7 +149,12 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void changeAct()    {
+    /**
+     * This method is called when the app wants to go to the next activity.
+     */
+    private void nextActivity()    {
+        Log.d(TAG,"going to next ativity");
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
