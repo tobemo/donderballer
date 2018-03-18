@@ -1,14 +1,13 @@
 package beers.donderballer;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.webkit.WebView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,48 +17,45 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
 
-    // This url contains the content of the article excluding web page's
-    // header, footer, title, comments
-    private static String url = "https://api.androidhive.info/facebook/firebase_analytics.html";
-    private static String url2 = "https://touch.facebook.com/groups/620104731366208?_rdr";
-
-    private WebView webView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
 
-        if(mAuth.getCurrentUser() != null) {
-            Snackbar mySnackbar = Snackbar.make(getWindow().getDecorView().getRootView(),
-                    user.getDisplayName(), Snackbar.LENGTH_LONG);
-            mySnackbar.show();
+        if(user != null) {
+            setTitle(user.getDisplayName());
         }
 
-        webView = (WebView) findViewById(R.id.web_view);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // launching facebook comments activity
-                Intent intent = new Intent(MainActivity.this, FbCommentsActivity.class);
-
-                // passing the article url
-                intent.putExtra("url", "https://www.androidhive.info/2016/06/android-firebase-integrate-analytics/");
-                startActivity(intent);
-            }
-        });
-
-        // loading web page
-        webView.loadUrl(url);
     }
 
+    //TODO: if there is no game running display "Start Game"
+    //TODO: when starting game auto select present players who said they were coming, see AttendingActivity
+    //TODO: in AttendingActivity: if no future game planned, plan one + facebook post
 
+    public void ranking (View view) {
+        Intent intent = new Intent(this, RankingActivity.class);
+        startActivity(intent);
+    }
 
+    public void game (View view)    {
+        Intent intent = new Intent(this, GameActivity.class);
+        startActivity(intent);
+    }
 
+    public void lastGame(View view) {
+        Intent intent = new Intent(this, LastGameActivity.class);
+        startActivity(intent);
+    }
+
+    public void attending (View view)   {
+        Intent intent = new Intent(this, AttendingActivity.class);
+        startActivity(intent);
+    }
 
 }

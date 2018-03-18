@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#5c5c5c</color>
+    <color name="colorPrimaryDark">#222d71</color>
+    <color name="colorAccent">#538fec</color>
+    <color name="colorDarkAccent">#30548c</color>
+    <color name="colorWhite">#ffffff</color>
+
+    <!-- Ranking Table-->
+    <color name="colorGeneralText">#000000</color>
+    <color name="colorHeaderText">#ffffff</color>
+    <color name="colorHeader">#5c5c5c</color>
+    <color name="colorBackground">#00ffffff</color>
 </resources>

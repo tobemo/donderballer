@@ -15,6 +15,29 @@
     <string name="action_comment">Comment</string>
     <string name="action_refresh">Reload</string>
     <string name="title_activity_fb_comments">FbCommentsActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="ranking">Ranking</string>
+    <string name="attending">Komende</string>
+    <string name="lastGame">Laatste Match</string>
+    <string name="game">Match</string>
+    <string name="title_activity_ranking">RankingActivity</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+
+    <!-- Strings related to ranking -->
+    <string name="rankTitle">RK</string>
+    <string name="nameTitle">Speler</string>
+    <string name="canOpenerTitle">CO</string>
+    <string name="peaCrusherTitle">PC</string>
+    <string name="pariBlastTitle">PB</string>
+
 
 
 </resources>
