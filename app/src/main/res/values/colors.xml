@@ -10,5 +10,5 @@
     <color name="colorGeneralText">#000000</color>
     <color name="colorHeaderText">#ffffff</color>
     <color name="colorHeader">#5c5c5c</color>
-    <color name="colorBackground">#00ffffff</color>
+    <color name="colorRankingBody">#00ffffff</color>
 </resources>

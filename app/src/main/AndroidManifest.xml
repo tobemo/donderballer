@@ -69,6 +69,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AttendingActivity" />
         <activity android:name=".LastGameActivity" />
+        <activity android:name=".DataBaseHandler" />
     </application>
 
 </manifest>

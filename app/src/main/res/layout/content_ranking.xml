@@ -20,7 +20,7 @@
     <TableLayout
         android:id="@+id/headerTable"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="40dp"
         android:stretchColumns="1">
 
         <TableRow
@@ -31,37 +31,37 @@
 
             <TextView
                 android:id="@+id/rankTitle"
+                style="@style/rankingHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:text="@string/rankTitle" />
 
             <TextView
                 android:id="@+id/nameTitle"
+                style="@style/rankingHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:text="@string/nameTitle" />
 
             <TextView
                 android:id="@+id/canOpenerTitle"
+                style="@style/rankingHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:text="@string/canOpenerTitle" />
 
             <TextView
                 android:id="@+id/peaCrusherTitle"
+                style="@style/rankingHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:text="@string/peaCrusherTitle" />
 
             <TextView
                 android:id="@+id/pariBlastTitle"
+                style="@style/rankingHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
                 android:text="@string/pariBlastTitle" />
         </TableRow>
 
@@ -69,10 +69,10 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="485dp"
-        android:layout_marginTop="29dp"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="42dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/headerTable">
 
         <TableLayout
 

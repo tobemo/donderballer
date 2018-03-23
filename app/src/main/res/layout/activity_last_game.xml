@@ -6,4 +6,6 @@
     android:layout_height="match_parent"
     tools:context="beers.donderballer.LastGameActivity">
 
+    <include layout="@layout/content_last_game" />
+
 </android.support.constraint.ConstraintLayout>

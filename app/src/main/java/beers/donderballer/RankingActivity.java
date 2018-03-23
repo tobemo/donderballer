@@ -14,6 +14,28 @@ public class RankingActivity extends AppCompatActivity {
     private TableLayout rankingTable;
     private int count;
 
+    //style variables
+    int textSize = 18;
+    int textColor = Color.BLACK;
+    int backgroundColor = Color.TRANSPARENT;
+    int padding = 25;    //20
+
+    //header
+    TextView rankTitle;
+    TextView nameTitle;
+    TextView canOpenerTitle;
+    TextView peaCrusherTitle;
+    TextView pariBlastTitle;
+
+    //headerWidth
+    int rankWidth;
+    int nameWidth;
+    int canOpenerWidth;
+    int peaCrusherWidth;
+    int pariBlastWidth;
+
+    private DataBaseHandler database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,68 +43,136 @@ public class RankingActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        rankTitle = (TextView)findViewById(R.id.rankTitle);
+        nameTitle = (TextView)findViewById(R.id.nameTitle);
+        canOpenerTitle = (TextView)findViewById(R.id.canOpenerTitle);
+        peaCrusherTitle = (TextView)findViewById(R.id.peaCrusherTitle);
+        pariBlastTitle = (TextView)findViewById(R.id.pariBlastTitle);
+
+        measureHeader();
+
+        //updateRanking();
+
     }
 
     public void addDummyRow (View view )    {
-        addRow(Integer.toString(count), "Derp", "2", "55", "1234", Color.TRANSPARENT, Color.BLACK);
+        addRow(Integer.toString(count), "Derp", "2", "55", "1234");
         count++;
     }
 
+    /**
+     * Display every row of the database table 'ranking' in the app table 'ranking'.
+     */
+    private void updateRanking()    {
+        String rank = "99";
+        String name = "John Doe";
+        String co = "0";
+        String pc = "0";
+        String pb = "99";
 
+        for (int row = 0; row < database.getRankingTableSize(); row++)  {
+            //TODO: extract data
+            database.getRowRanking(row);
 
-
-    private void initHeader() {
-
+            addRow(rank, name, co, pc, pb);
+        }
     }
 
-    private void addRow(String rank, String name, String canOpener, String peaCrusher, String pariBlast, int backgroundColor, int textColor) {
+
+    /**
+     * This method is used to add rows to the ranking table containing a player with its stats.
+     * @param rank
+     * @param name
+     * @param canOpener
+     * @param peaCrusher
+     * @param pariBlast
+     */
+    private void addRow(String rank, String name, String canOpener, String peaCrusher, String pariBlast) {
+
+        if(canOpener.length() > 3) {canOpener = "MX";}
+        if(peaCrusher.length() > 3) {peaCrusher = "MX";}
+        if(pariBlast.length() > 3) {pariBlast = "MX";}
+
         rankingTable = (TableLayout) findViewById(R.id.main_table);
         rankingTable.setColumnStretchable(1, Boolean.TRUE);
 
-        TableRow tr_head = new TableRow(this);
-        tr_head.setId(View.generateViewId());   //TODO: support API lower than 17
-        tr_head.setBackgroundColor(backgroundColor);        // part1
-        tr_head.setLayoutParams(new TableRow.LayoutParams(
+        TableRow newRow = new TableRow(this);
+        newRow.setId(View.generateViewId());   //TODO: support API lower than 17
+        newRow.setBackgroundColor(backgroundColor);        // set background color as specified by variable backgroundColor
+        TableRow.LayoutParams params = new TableRow.LayoutParams(
                 TableRow.LayoutParams.FILL_PARENT,
-                TableRow.LayoutParams.MATCH_PARENT));
+                TableRow.LayoutParams.MATCH_PARENT);
+        newRow.setLayoutParams(params);
 
         TextView label_rk = new TextView(this);
+        label_rk.setText(rank); // set the text for the header
         label_rk.setId(View.generateViewId());
-        label_rk.setText(rank);
-        label_rk.setTextColor(textColor);          // part2
-        label_rk.setPadding(5, 5, 5, 5);
-        tr_head.addView(label_rk);// add the column to the table row here
+        styling(label_rk);  //style textview using method 'styling'
+        label_rk.setWidth(rankWidth);  //set width of this textview the sma eas the width of the textview-header
+        newRow.addView(label_rk);// add the column to the table row here
 
-        TextView label_name = new TextView(this);    // part3
-        label_name.setId(View.generateViewId());// define id that must be unique
-        label_name.setText(name); // set the text for the header
-        label_name.setTextColor(textColor); // set the color
-        label_name.setPadding(5, 5, 5, 5); // set the padding (if required)
-        tr_head.addView(label_name); // add the column to the table row here
+        TextView label_name = new TextView(this);
+        label_name.setId(View.generateViewId());
+        label_name.setText(name);
+        styling(label_name);
+        label_name.setWidth(nameWidth);
+        newRow.addView(label_name);
 
-        TextView label_CO = new TextView(this);    // part3
-        label_CO.setId(View.generateViewId());// define id that must be unique
-        label_CO.setText(canOpener); // set the text for the header
-        label_CO.setTextColor(textColor); // set the color
-        label_CO.setPadding(5, 5, 5, 5); // set the padding (if required)
-        tr_head.addView(label_CO); // add the column to the table row here
+        TextView label_CO = new TextView(this);
+        label_CO.setId(View.generateViewId());
+        label_CO.setText(canOpener);
+        styling(label_CO);
+        label_CO.setWidth(canOpenerWidth);
+        newRow.addView(label_CO);
 
-        TextView label_PC = new TextView(this);    // part3
-        label_PC.setId(View.generateViewId());// define id that must be unique
-        label_PC.setText(peaCrusher); // set the text for the header
-        label_PC.setTextColor(textColor); // set the color
-        label_PC.setPadding(5, 5, 5, 5); // set the padding (if required)
-        tr_head.addView(label_PC); // add the column to the table row here
+        TextView label_PC = new TextView(this);
+        label_PC.setId(View.generateViewId());
+        label_PC.setText(peaCrusher);
+        styling(label_PC);
+        label_PC.setWidth(peaCrusherWidth);
+        newRow.addView(label_PC);
 
-        TextView label_PB = new TextView(this);    // part3
-        label_PB.setId(View.generateViewId());// define id that must be unique
-        label_PB.setText(pariBlast); // set the text for the header
-        label_PB.setTextColor(textColor); // set the color
-        label_PB.setPadding(5, 5, 5, 5); // set the padding (if required)
-        tr_head.addView(label_PB); // add the column to the table row here
+        TextView label_PB = new TextView(this);
+        label_PB.setId(View.generateViewId());
+        label_PB.setText(pariBlast);
+        styling(label_PB);
+        label_PB.setWidth(pariBlastWidth);
+        newRow.addView(label_PB);
 
-        rankingTable.addView(tr_head, new TableLayout.LayoutParams(
-                TableLayout.LayoutParams.MATCH_PARENT,                    //part4
+        rankingTable.addView(newRow, new TableLayout.LayoutParams(
+                TableLayout.LayoutParams.MATCH_PARENT,
                 TableLayout.LayoutParams.MATCH_PARENT));
+    }
+
+    /**
+     * This method does the styiling of the textviews used in the ranking table.
+     * @param input
+     */
+    private void styling(TextView input) {
+        input.setTextColor(textColor);
+        input.setTextSize(textSize);
+        input.setPadding(padding, padding, 0, 0);
+        //input.setGravity(Gravity.CENTER_HORIZONTAL);
+    }
+
+    /**
+     * Gets the width's of the textviews in the header.
+     */
+    private void measureHeader()    {
+        rankWidth = measure(rankTitle);
+        nameWidth = measure(nameTitle);
+        canOpenerWidth = measure(canOpenerTitle);
+        peaCrusherWidth = measure(peaCrusherTitle);
+        pariBlastWidth = measure(pariBlastTitle);
+    }
+
+    /**
+     * Measures the width of the textviews in the header. This is used by addRow to set the width of each textview in a row.
+     * @param textview
+     * @return width of a textview
+     */
+    private int measure(TextView textview)   {
+        textview.measure(0,0);
+        return textview.getMeasuredWidth();
     }
 }

@@ -37,7 +37,9 @@
     <string name="canOpenerTitle">CO</string>
     <string name="peaCrusherTitle">PC</string>
     <string name="pariBlastTitle">PB</string>
-
+    <string name="scoreTeamA">null</string>
+    <string name="scoreTeamB">null</string>
+    <string name="title_activity_dummy">Dummy</string>
 
 
 </resources>
