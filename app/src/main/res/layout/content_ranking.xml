@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="beers.donderballer.RankingActivity"
+    tools:showIn="@layout/activity_ranking">
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="addDummyRow"
+        android:text="addDummyRow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TableLayout
+        android:id="@+id/headerTable"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:stretchColumns="1">
+
+        <TableRow
+            android:id="@+id/headerRow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorHeader">
+
+            <TextView
+                android:id="@+id/rankTitle"
+                style="@style/rankingHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/rankTitle" />
+
+            <TextView
+                android:id="@+id/nameTitle"
+                style="@style/rankingHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nameTitle" />
+
+            <TextView
+                android:id="@+id/canOpenerTitle"
+                style="@style/rankingHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/canOpenerTitle" />
+
+            <TextView
+                android:id="@+id/peaCrusherTitle"
+                style="@style/rankingHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/peaCrusherTitle" />
+
+            <TextView
+                android:id="@+id/pariBlastTitle"
+                style="@style/rankingHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pariBlastTitle" />
+        </TableRow>
+
+    </TableLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="42dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerTable">
+
+        <TableLayout
+
+            android:id="@+id/main_table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></TableLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>

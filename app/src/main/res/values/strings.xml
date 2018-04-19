@@ -2,19 +2,44 @@
     <string name="app_name">donderballer</string>
     <string name="facebook_app_id">1555622314553776</string>
     <string name="fb_login_protocol_scheme">fb1555622314553776</string>
+
     <string name="title_activity_login">Sign in</string>
+    <string name="greeting">Hello there</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="welcome_message">Welkom</string>
+    <string name="error_retrieving_name">Naam niet gevonden.</string>
+
+    <!-- Strings related to Facebook comments -->
+    <string name="title_activity_comments">Comments</string>
+    <string name="action_comment">Comment</string>
+    <string name="action_refresh">Reload</string>
+    <string name="title_activity_fb_comments">FbCommentsActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="ranking">Ranking</string>
+    <string name="attending">Komende</string>
+    <string name="lastGame">Laatste Match</string>
+    <string name="game">Match</string>
+    <string name="title_activity_ranking">RankingActivity</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+
+    <!-- Strings related to ranking -->
+    <string name="rankTitle">RK</string>
+    <string name="nameTitle">Speler</string>
+    <string name="canOpenerTitle">CO</string>
+    <string name="peaCrusherTitle">PC</string>
+    <string name="pariBlastTitle">PB</string>
+    <string name="scoreTeamA">null</string>
+    <string name="scoreTeamB">null</string>
+    <string name="title_activity_dummy">Dummy</string>
+
 
 </resources>
