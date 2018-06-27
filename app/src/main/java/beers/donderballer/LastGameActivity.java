@@ -1,19 +1,18 @@
 package beers.donderballer;
 
+import android.content.Intent;
 import android.graphics.Color;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class LastGameActivity extends AppCompatActivity {
 
@@ -41,11 +40,51 @@ public class LastGameActivity extends AppCompatActivity {
     int textColor = Color.BLACK;
     int backgroundColor = Color.TRANSPARENT;
 
+    //toolbar etc
+    Toolbar toolbarLastGame;
+    Spinner spinnerLastGame;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_last_game);
+
+        toolbarLastGame = findViewById(R.id.toolbarLastGame);
+        spinnerLastGame = findViewById(R.id.spinnerLastGame);
+
+        ArrayAdapter<String> lastGameAdapter = new ArrayAdapter<String>(LastGameActivity.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.activities));
+        lastGameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerLastGame.setAdapter(lastGameAdapter);
+        spinnerLastGame.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                //Idealy each case references an ellemnt of the strings.activities-string-array. Switchcases however don't support arrays.
+                //Maybe one day...
+                switch (spinnerLastGame.getSelectedItem().toString())    {
+                    case "Ranking":
+                        Intent intent3 = new Intent(LastGameActivity.this, RankingActivity.class);
+                        startActivity(intent3);
+                        break;
+                    case "Attending":
+                        Intent intent = new Intent(LastGameActivity.this, AttendingActivity.class);
+                        startActivity(intent);
+                        break;
+                    case "Game":
+                        Intent intent2 = new Intent(LastGameActivity.this, GameActivity.class);
+                        startActivity(intent2);
+                        break;
+                    case "Last Game":
+                        //nothing
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         scoreTeamA = (TextView) findViewById(R.id.scoreTeamA);
         scoreTeamB = (TextView) findViewById(R.id.scoreTeamB);

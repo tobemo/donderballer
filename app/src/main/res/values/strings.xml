@@ -41,5 +41,14 @@
     <string name="scoreTeamB">null</string>
     <string name="title_activity_dummy">Dummy</string>
 
+    <!-- toolbar strings -->
+    <string-array name="activities">
+        <item> Test</item>
+        <item> Ranking</item>
+        <item> Attending</item>
+        <item> Game</item>
+        <item> Last Game</item>
+    </string-array>
+
 
 </resources>

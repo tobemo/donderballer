@@ -1,10 +1,14 @@
 package beers.donderballer;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -34,6 +38,10 @@ public class RankingActivity extends AppCompatActivity {
     int peaCrusherWidth;
     int pariBlastWidth;
 
+    //toolbar etc
+    Toolbar toolbarRanking;
+    Spinner spinnerRanking;
+
     private DataBaseHandler database;
 
     @Override
@@ -42,6 +50,47 @@ public class RankingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ranking);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        toolbarRanking = findViewById(R.id.toolbarRanking);
+        spinnerRanking = findViewById(R.id.spinnerRanking);
+
+        ArrayAdapter<String> rankingAdapter = new ArrayAdapter<String>(RankingActivity.this,android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.activities));
+        rankingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRanking.setAdapter(rankingAdapter);
+        spinnerRanking.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int postion, long l) {
+                //Idealy each case references an ellemnt of the strings.activities-string-array. Switchcases however don't support arrays.
+                //Maybe one day...
+                final Intent intent;
+                switch (spinnerRanking.getSelectedItem().toString())    {
+                    case "Ranking":
+                        //nothing
+                        break;
+                    case "Attending":
+                        spinnerRanking.setSelection(getIndex(spinnerRanking,"Attending"));
+                        intent = new Intent(RankingActivity.this, AttendingActivity.class);
+                        startActivity(intent);
+                        break;
+                    case "Game":
+                        spinnerRanking.setSelection(getIndex(spinnerRanking,"Game"));
+                        intent = new Intent(RankingActivity.this, GameActivity.class);
+                        startActivity(intent);
+                        break;
+                    case "Last Game":
+                        spinnerRanking.setSelection(getIndex(spinnerRanking,"Last Gale"));
+                        intent = new Intent(RankingActivity.this, LastGameActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
 
         rankTitle = (TextView)findViewById(R.id.rankTitle);
         nameTitle = (TextView)findViewById(R.id.nameTitle);
@@ -53,6 +102,18 @@ public class RankingActivity extends AppCompatActivity {
 
         //updateRanking();
 
+    }
+
+    private int getIndex(Spinner spinner, String myString){
+
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).equals(myString)){
+                index = i;
+            }
+        }
+        return index;
     }
 
     public void addDummyRow (View view )    {

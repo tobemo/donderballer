@@ -168,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
     private void nextActivity()    {
         Log.d(TAG,"going to next ativity");
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, RankingActivity.class);
         startActivity(intent);
     }
 

@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(user != null) {
             setTitle(user.getDisplayName());
-        }
+        }   //TODO: + shirtnumber
 
 
     }
