@@ -30,7 +30,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 /**
  * LoginActivity logs in users using their facebook account.
- * This accoutn can later on be used for eg. making facebook polls.
+ * This account can later on be used for eg. making facebook polls.
  *
  * @author tobemo
  * @version 1
@@ -38,15 +38,17 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-
-    private TextView info;
+    //layout variables
+    private TextView info;  //used for debugging
     private LoginButton loginButton;
 
+    //called when login to Facebook attempted
     private CallbackManager callbackManager;
 
-
+    //current Firebase instance
     private FirebaseAuth mAuth;
 
+    //for debugging
     private String TAG = "LoginActivity";
 
     /**
@@ -63,26 +65,32 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Attempts to login in Facebook and sets some layout elements.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //for facebook login
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         mAuth = FirebaseAuth.getInstance();
 
+        //for layout
         setContentView(R.layout.activity_login);
-        info = (TextView)findViewById(R.id.info);
-        loginButton = (LoginButton)findViewById(R.id.login_button);
+        info = findViewById(R.id.info);
+        loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions("email", "public_profile");
 
+        //attempts to login in Facebook
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-                nextActivity();
+                handleFacebookAccessToken(loginResult.getAccessToken());    //first handle succes
+                nextActivity();     //then go to next activity
             }
 
             @Override
@@ -98,6 +106,9 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Handles Firebase login with credentials coming from Facebook.
+     */
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
@@ -109,7 +120,8 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            FirebaseUser user = mAuth.getCurrentUser();     //The user is now known and remebered, from Facebook, via Firebase.
+
                             welcomeToast(user);
 
                         } else {
@@ -117,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+
                             welcomeToast(null);
                         }
 
@@ -132,23 +145,19 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * A toast welcoming the user: Welcome + user's name
-     * @param user
+     * @param user Firebase user
      */
     private void welcomeToast(FirebaseUser user)    {
         Log.d(TAG,"welcome toast");
 
         if(user != null) {
-            Toast.makeText(LoginActivity.this, R.string.welcome_message + user.getDisplayName()+ ".", Toast.LENGTH_SHORT);
+            Toast.makeText(LoginActivity.this, R.string.welcome_message + user.getDisplayName()+ ".", Toast.LENGTH_SHORT).show();
         }   else    {
-            Toast.makeText(LoginActivity.this, R.string.error_retrieving_name, Toast.LENGTH_SHORT);
+            Toast.makeText(LoginActivity.this, R.string.error_retrieving_name, Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    public void onclick(View view)  {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
 
     /**
      * This method is called when the app wants to go to the next activity.
